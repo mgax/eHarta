@@ -3,11 +3,36 @@
 <head>
     <meta charset="utf-8">
     <title>eHarta</title>
+    <link href='http://fonts.googleapis.com/css?family=Dancing+Script'
+          rel='stylesheet'>
     <style>
         html, body {
             width: 100%;
             height: 100%;
             margin: 0;
+        }
+
+        #control-box {
+            position: fixed;
+            z-index: 2000;
+            right: 0;
+            padding: 5px 25px;
+            background: #333;
+            color: #fff;
+            text-align: right;
+        }
+
+        #control-box h1, #control-box p {
+            margin: 5px 0;
+            padding: 0;
+        }
+
+        #control-box h1 {
+            font-family: 'Dancing Script', cursive, serif;
+        }
+
+        #control-box a, #control-box a:visited {
+            color: #7cf;
         }
 
         #map {
@@ -20,6 +45,15 @@
 <body>
 
 <script src="http://grep.ro/quickpub/openlayers-2.11/OpenLayers.js"></script>
+
+<div id="control-box">
+    <h1>eHarta</h1>
+    <p>
+        More info:
+        <a href="http://www.earth.unibuc.ro/harti/">maps</a>,
+        <a href="https://github.com/alex-morega/eHarta">source code</a>.
+    </p>
+</div>
 
 <div id="map"></div>
 
