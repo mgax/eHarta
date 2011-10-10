@@ -43,6 +43,21 @@
     var center = new OpenLayers.LonLat(25, 45.5)
     olmap.setCenter(proj_to_map(center), 7);
 
+    var layer_austrian = new OpenLayers.Layer.WMS(
+        "geospatial:mozaic_austrian - Tiled",
+        "http://earth.unibuc.ro:8080/geoserver/geospatial/wms",
+        {
+            LAYERS: 'geospatial:mozaic_austrian',
+            format: 'image/jpeg'
+        },
+        {
+            displayOutsideMaxExtent: true,
+            isBaseLayer: false,
+            opacity: 0.5
+        }
+    );
+    olmap.addLayer(layer_austrian);
+
 })();
 </script>
 
