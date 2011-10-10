@@ -26,7 +26,10 @@
 <script>
 (function() {
 
-    var olmap = new OpenLayers.Map('map');
+    var olmap = new OpenLayers.Map('map', {controls: [
+        new OpenLayers.Control.Navigation(),
+        new OpenLayers.Control.Attribution()
+    ]});
     olmap.addLayer(new OpenLayers.Layer.OSM());
 
     var wgs1984 = new OpenLayers.Projection("EPSG:4326");
