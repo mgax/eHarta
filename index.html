@@ -67,7 +67,7 @@
 
 <body>
 
-<script src="http://grep.ro/quickpub/openlayers-2.11/OpenLayers.js"></script>
+<script src="http://grep.ro/quickpub/polymaps-2.5.0/polymaps.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
 
@@ -85,7 +85,21 @@
 
 <script>
 (function() {
+    var po = org.polymaps;
 
+    var svg_container = po.svg("svg");
+    $('#map').append(svg_container);
+    var pomap = new po.map();
+    pomap.container(svg_container);
+    pomap.add(po.interact());
+
+    var osm_url = po.url("http://{S}tile.openstreetmap.org/{Z}/{X}/{Y}.png")
+                    .hosts(["a.", "b.", "c.", ""]);
+    pomap.add(po.image().url(osm_url));
+    pomap.center({lon: 25, lat: 46}).zoom(7);
+
+
+    /*
     var olmap = new OpenLayers.Map('map', {controls: [
         new OpenLayers.Control.Navigation(),
         new OpenLayers.Control.Attribution()
@@ -138,6 +152,7 @@
     austrian_li.append($('<span class="label">')
                        .text("1910 Austrian maps, 1:200k"));
     austrian_li.appendTo($('ul#layers'));
+    */
 
 })();
 </script>
