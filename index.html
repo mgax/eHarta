@@ -64,15 +64,17 @@
     <a href="https://github.com/alex-morega/eHarta">source code</a>.
 </p>
 
-<div id="map"></div>
+<div id="map">
+  <svg class="map">
+  </svg>
+</div>
 
 <script>
 (function() {
     var po = org.polymaps;
     var eH = window.eH = {};
 
-    var svg_container = po.svg("svg");
-    $('#map').append(svg_container);
+    var svg_container = $('#map svg.map')[0];
     eH.pomap = new po.map();
     eH.pomap.container(svg_container);
     eH.pomap.add(po.interact());
