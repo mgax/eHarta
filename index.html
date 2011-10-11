@@ -69,25 +69,25 @@
 <script>
 (function() {
     var po = org.polymaps;
+    var eH = window.eH = {};
 
     var svg_container = po.svg("svg");
     $('#map').append(svg_container);
-    var pomap = new po.map();
-    pomap.container(svg_container);
-    pomap.add(po.interact());
+    eH.pomap = new po.map();
+    eH.pomap.container(svg_container);
+    eH.pomap.add(po.interact());
 
     var osm_url = po.url("http://{S}tile.openstreetmap.org/{Z}/{X}/{Y}.png")
                     .hosts(["a.", "b.", "c.", ""]);
-    pomap.add(po.image().url(osm_url));
-    pomap.center({lon: 25, lat: 46}).zoom(7);
+    eH.pomap.add(po.image().url(osm_url));
+    eH.pomap.center({lon: 25, lat: 46}).zoom(7);
 
-
-    function create_layer(name, label) {
+    eH.layers = {};
+    eH.create_layer = function(name, label) {
         var url = po.url("http://pivo.edw.ro:50268/"+name+"/{Z}/{X}/{Y}.png");
         var polayer = po.image().url(url);
         polayer.id('layer_' + name);
-        pomap.add(polayer);
-
+        eH.pomap.add(polayer);
 
         var li = $('<li class="layer-control">');
         var slider_div = $('<div>').appendTo(li);
@@ -104,15 +104,26 @@
             slide: handle_change,
             change: handle_change
         });
-        slider_div.slider('value', 0);
+
+        var set_opacity = function(value) {
+            slider_div.slider('value', value);
+        };
+        set_opacity(0);
+
         slider_div.appendTo(li);
         li.append($('<span class="label">').text(label));
         li.appendTo($('ul#layers'));
+
+        eH.layers[name] = {
+            polayer: polayer,
+            svg_group: $('#layer_' + name)[0],
+            set_opacity: set_opacity
+        };
     };
 
-    create_layer('austrian', "Hărți austriece 1910, 1:200k");
-    create_layer('soviet', "Hărți sovietice, 1:100k");
-    create_layer('planuri_tragere', "Planuri Directoare de Tragere, 1:20k");
+    eH.create_layer('austrian', "Hărți austriece 1910, 1:200k");
+    eH.create_layer('soviet', "Hărți sovietice, 1:100k");
+    eH.create_layer('planuri_tragere', "Planuri Directoare de Tragere, 1:20k");
 
 })();
 </script>
