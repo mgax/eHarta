@@ -66,6 +66,22 @@
 
 <div id="map">
   <svg class="map">
+
+    <defs>
+      <filter id="Desaturate" filterUnits="objectBoundingBox"
+              x="0%" y="0%" width="100%" height="100%">
+        <feColorMatrix type="saturate" in="SourceGraphic" values="0"/>
+      </filter>
+      <filter id="RedOnionSkin" filterUnits="objectBoundingBox"
+              x="0%" y="0%" width="100%" height="100%">
+        <feColorMatrix type="matrix" in="SourceGraphic"
+             values="-0.33  -0.33  -0.33   0     1
+                      0      0      0      0     0
+                      0      0      0      0     0
+                     -0.33  -0.33  -0.33   1     0    "/>
+      </filter>
+    </defs>
+
   </svg>
 </div>
 
@@ -81,7 +97,9 @@
 
     var osm_url = po.url("http://{S}tile.openstreetmap.org/{Z}/{X}/{Y}.png")
                     .hosts(["a.", "b.", "c.", ""]);
-    eH.pomap.add(po.image().url(osm_url));
+    eH.pomap.add(po.image().url(osm_url).id('layer_osm'));
+    $('#layer_osm').attr('filter', 'url(#Desaturate)');
+
     eH.pomap.center({lon: 25, lat: 46}).zoom(7);
 
     eH.layers = {};
@@ -115,6 +133,19 @@
         };
         layer.set_opacity(0);
 
+        var set_filter = function(value) {
+            var elem = $(layer['svg_group']);
+            if(value) {
+                elem.attr('filter', 'url(#RedOnionSkin)');
+            }
+            else {
+                elem.attr('filter', null);
+            }
+        };
+
+        $('<input type="checkbox">').appendTo(li).change(function(evt) {
+            set_filter($(this).is(':checked'));
+        });
         li.append($('<span class="label">').text(label));
         li.appendTo($('ul#layers'));
     };
