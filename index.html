@@ -98,6 +98,9 @@
     pomap.add(po.image().url(osm_url));
     pomap.center({lon: 25, lat: 46}).zoom(7);
 
+    var austrian_url = po.url("http://localhost:8080/austrian/{Z}/{X}/{Y}.png");
+    pomap.add(po.image().url(austrian_url));
+
 
     /*
     var olmap = new OpenLayers.Map('map', {controls: [
