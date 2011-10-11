@@ -83,8 +83,7 @@
 
 
     function create_layer(name, label) {
-        var url = po.url("http://localhost:8080/" + name +
-                                  "/{Z}/{X}/{Y}.png");
+        var url = po.url("http://pivo.edw.ro:50268/"+name+"/{Z}/{X}/{Y}.png");
         var polayer = po.image().url(url);
         polayer.id('layer_' + name);
         pomap.add(polayer);
