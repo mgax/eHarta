@@ -92,7 +92,9 @@
         var li = $('<li class="layer-control">');
         var slider_div = $('<div>').appendTo(li);
         var handle_change = function(evt, ui) {
-            $('#layer_' + name).css('opacity', ui.value);
+            var value = ui.value;
+            polayer.visible(value > 0);
+            $('#layer_' + name).css('opacity', value);
         };
         slider_div.slider({
             min: 0,
