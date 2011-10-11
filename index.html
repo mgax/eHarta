@@ -81,30 +81,35 @@
     pomap.add(po.image().url(osm_url));
     pomap.center({lon: 25, lat: 46}).zoom(7);
 
-    var austrian_url = po.url("http://localhost:8080/austrian/{Z}/{X}/{Y}.png");
-    var austrian_layer = po.image().url(austrian_url);
-    austrian_layer.id('austrian_layer');
-    pomap.add(austrian_layer);
+
+    function create_layer(name, label) {
+        var url = po.url("http://localhost:8080/" + name +
+                                  "/{Z}/{X}/{Y}.png");
+        var polayer = po.image().url(url);
+        polayer.id('layer_' + name);
+        pomap.add(polayer);
 
 
-    var austrian_li = $('<li class="layer-control">');
-    var austrian_slider = $('<div>').appendTo(austrian_li);
-    var handle_change = function(evt, ui) {
-        $('#austrian_layer').css('opacity', ui.value);
+        var li = $('<li class="layer-control">');
+        var slider_div = $('<div>').appendTo(li);
+        var handle_change = function(evt, ui) {
+            $('#layer_' + name).css('opacity', ui.value);
+        };
+        slider_div.slider({
+            min: 0,
+            max: 1.0,
+            step: 0.05,
+            range: 'min',
+            slide: handle_change,
+            change: handle_change
+        });
+        slider_div.slider('value', 0.5);
+        slider_div.appendTo(li);
+        li.append($('<span class="label">').text(label));
+        li.appendTo($('ul#layers'));
     };
-    austrian_slider.slider({
-        min: 0,
-        max: 1.0,
-        step: 0.05,
-        range: 'min',
-        slide: handle_change,
-        change: handle_change
-    });
-    austrian_slider.slider('value', 0.5);
-    austrian_slider.appendTo(austrian_li);
-    austrian_li.append($('<span class="label">')
-                       .text("1910 Austrian maps, 1:200k"));
-    austrian_li.appendTo($('ul#layers'));
+
+    create_layer('austrian', "Hărți austriece 1910, 1:200k");
 
 })();
 </script>
