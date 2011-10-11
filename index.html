@@ -7,6 +7,34 @@
           rel='stylesheet'>
     <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css" rel="stylesheet">
     <style>
+        .compass .back {
+          fill: #eee;
+          fill-opacity: .8;
+        }
+
+        .compass .fore {
+          stroke: #999;
+          stroke-width: 1.5px;
+        }
+
+        .compass .direction {
+          fill: none;
+        }
+
+        .compass .chevron {
+          fill: none;
+          stroke: #999;
+          stroke-width: 5px;
+        }
+
+        .compass .zoom .chevron {
+          stroke-width: 4px;
+        }
+
+        .compass .active .chevron, .compass .chevron.active {
+          stroke: #fff;
+        }
+
         h1 {
             font-family: 'Dancing Script', cursive, serif;
         }
@@ -92,15 +120,14 @@
 
     var svg_container = $('#map svg.map')[0];
     eH.pomap = new po.map();
+    eH.pomap.center({lon: 25, lat: 46}).zoom(7);
     eH.pomap.container(svg_container);
-    eH.pomap.add(po.interact());
 
     var osm_url = po.url("http://{S}tile.openstreetmap.org/{Z}/{X}/{Y}.png")
                     .hosts(["a.", "b.", "c.", ""]);
     eH.pomap.add(po.image().url(osm_url).id('layer_osm'));
     $('#layer_osm').attr('filter', 'url(#Desaturate)');
 
-    eH.pomap.center({lon: 25, lat: 46}).zoom(7);
 
     eH.layers = {};
     eH.create_layer = function(name, label) {
@@ -154,6 +181,9 @@
     eH.create_layer('soviet', "Hărți sovietice, 1:100k");
     eH.create_layer('planuri_tragere', "Planuri Directoare de Tragere, 1:20k");
 
+    eH.pomap.add(po.interact());
+    eH.pomap.add(po.compass().pan('none'));
+    eH.pomap.add(po.hash());
 })();
 </script>
 
