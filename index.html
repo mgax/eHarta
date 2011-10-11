@@ -86,18 +86,21 @@
 
     eH.layers = {};
     eH.create_layer = function(name, label) {
+        var layer = eH.layers[name] = {};
         var url = po.url("http://pivo.edw.ro:50268/"+name+"/{Z}/{X}/{Y}.png");
-        var polayer = po.image().url(url);
+        var polayer = layer.polayer = po.image().url(url);
         polayer.id('layer_' + name);
         eH.pomap.add(polayer);
+        layer['svg_group'] = $('#layer_' + name)[0];
 
         var li = $('<li class="layer-control">');
-        var slider_div = $('<div>').appendTo(li);
+
         var handle_change = function(evt, ui) {
             var value = ui.value;
             polayer.visible(value > 0);
             $('#layer_' + name).css('opacity', value);
         };
+        var slider_div = $('<div>').appendTo(li);
         slider_div.slider({
             min: 0,
             max: 1.0,
@@ -106,21 +109,14 @@
             slide: handle_change,
             change: handle_change
         });
-
-        var set_opacity = function(value) {
+        slider_div.appendTo(li);
+        layer['set_opacity'] = function(value) {
             slider_div.slider('value', value);
         };
-        set_opacity(0);
+        layer.set_opacity(0);
 
-        slider_div.appendTo(li);
         li.append($('<span class="label">').text(label));
         li.appendTo($('ul#layers'));
-
-        eH.layers[name] = {
-            polayer: polayer,
-            svg_group: $('#layer_' + name)[0],
-            set_opacity: set_opacity
-        };
     };
 
     eH.create_layer('austrian', "Hărți austriece 1910, 1:200k");
