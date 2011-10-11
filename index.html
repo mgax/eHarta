@@ -99,63 +99,29 @@
     pomap.center({lon: 25, lat: 46}).zoom(7);
 
     var austrian_url = po.url("http://localhost:8080/austrian/{Z}/{X}/{Y}.png");
-    pomap.add(po.image().url(austrian_url));
+    var austrian_layer = po.image().url(austrian_url);
+    austrian_layer.id('austrian_layer');
+    pomap.add(austrian_layer);
 
-
-    /*
-    var olmap = new OpenLayers.Map('map', {controls: [
-        new OpenLayers.Control.Navigation(),
-        new OpenLayers.Control.Attribution()
-    ]});
-    olmap.addLayer(new OpenLayers.Layer.OSM());
-
-    var wgs1984 = new OpenLayers.Projection("EPSG:4326");
-    var map_proj = olmap.getProjectionObject();
-
-    var proj_to_map = function(point) {
-      return point.clone().transform(wgs1984, map_proj);
-    };
-
-    var proj_from_map = function(point) {
-      return point.clone().transform(map_proj, wgs1984);
-    };
-
-    var center = new OpenLayers.LonLat(25, 45.5)
-    olmap.setCenter(proj_to_map(center), 7);
-
-    var layer_austrian = new OpenLayers.Layer.WMS(
-        "geospatial:mozaic_austrian - Tiled",
-        "http://earth.unibuc.ro:8080/geoserver/geospatial/wms",
-        {
-            LAYERS: 'geospatial:mozaic_austrian',
-            format: 'image/jpeg'
-        },
-        {
-            displayOutsideMaxExtent: true,
-            isBaseLayer: false,
-            opacity: 0.5
-        }
-    );
-    olmap.addLayer(layer_austrian);
 
     var austrian_li = $('<li class="layer-control">');
     var austrian_slider = $('<div>').appendTo(austrian_li);
+    var handle_change = function(evt, ui) {
+        $('#austrian_layer').css('opacity', ui.value);
+    };
     austrian_slider.slider({
         min: 0,
         max: 1.0,
         step: 0.05,
         range: 'min',
-        value: 0.5,
-        slide: function(evt, ui) {
-            layer_austrian.setOpacity(ui.value);
-            console.log(ui.value);
-        }
+        slide: handle_change,
+        change: handle_change
     });
+    austrian_slider.slider('value', 0.5);
     austrian_slider.appendTo(austrian_li);
     austrian_li.append($('<span class="label">')
                        .text("1910 Austrian maps, 1:200k"));
     austrian_li.appendTo($('ul#layers'));
-    */
 
 })();
 </script>
