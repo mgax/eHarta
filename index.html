@@ -15,17 +15,14 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
 
-<ul id="layers"></ul>
-<h1>eHarta</h1>
-<p>
-    Drag sliders to change layer opacity. Toggle checkboxes to apply
-    color filter.
-</p>
-<p>
-    More info:
-    <a href="http://www.earth.unibuc.ro/harti/">maps</a>,
-    <a href="https://github.com/alex-morega/eHarta">source code</a>.
-</p>
+<div id="header">
+    <ul id="layers"></ul>
+    <h1>eHarta</h1>
+    <p>
+        Drag sliders to change layer opacity. Toggle checkboxes to apply
+        color filter.
+    </p>
+</div>
 
 <div id="map">
   <svg class="map">
@@ -47,6 +44,19 @@
 
   </svg>
 </div>
+
+<p>
+    Maps from the
+    <a href="http://earth.unibuc.ro/articole/eHarta">eHarta project</a>
+    on top of an OpenStreetMap base layer. Displayed using
+    <a href="http://polymaps.org/">PolyMaps</a> with tiles from
+    <a href="http://earth.unibuc.ro:8080/geoserver/"
+        >http://earth.unibuc.ro:8080/geoserver/</a>.
+    SVG raster filters are used to color map layers for easy visual
+    comparison. Depending on the web browser, the map can use a lot of
+    memory, or not display properly. Source code is
+    <a href="https://github.com/alex-morega/eHarta">on GitHub</a>.
+</p>
 
 <script>
 (function() {
