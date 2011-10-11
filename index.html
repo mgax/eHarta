@@ -7,39 +7,20 @@
           rel='stylesheet'>
     <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css" rel="stylesheet">
     <style>
-        html, body {
-            width: 100%;
-            height: 100%;
-            margin: 0;
-        }
-
-        #control-box {
-            position: fixed;
-            z-index: 2000;
-            right: 0;
-            padding: 5px 25px;
-            background: #333;
-            color: #fff;
-            text-align: right;
-        }
-
-        #control-box h1, #control-box p {
-            margin: 5px 0;
-            padding: 0;
-        }
-
-        #control-box h1 {
+        h1 {
             font-family: 'Dancing Script', cursive, serif;
         }
 
-        #control-box ul#layers {
+        ul#layers {
             list-style: none;
-            padding: 5px;
+            padding: 0;
+            margin: 0 10px;
+            float: right;
         }
 
         li.layer-control .ui-slider-horizontal {
             height: 5px;
-            width: 50px;
+            width: 80px;
             display: inline-block;
         }
 
@@ -59,8 +40,12 @@
         }
 
         #map {
-            width: 100%;
-            height: 100%;
+            height: 70%;
+            width: 90%;
+            background: #bbb;
+            border: 2px solid #bbb;
+            margin: 10px auto;
+            padding: 0;
         }
     </style>
 </head>
@@ -71,15 +56,13 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
 
-<div id="control-box">
-    <h1>eHarta</h1>
-    <ul id="layers"></ul>
-    <p>
-        More info:
-        <a href="http://www.earth.unibuc.ro/harti/">maps</a>,
-        <a href="https://github.com/alex-morega/eHarta">source code</a>.
-    </p>
-</div>
+<ul id="layers"></ul>
+<h1>eHarta</h1>
+<p>
+    More info:
+    <a href="http://www.earth.unibuc.ro/harti/">maps</a>,
+    <a href="https://github.com/alex-morega/eHarta">source code</a>.
+</p>
 
 <div id="map"></div>
 
