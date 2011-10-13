@@ -122,13 +122,37 @@
         li.appendTo($('ul#layers'));
     };
 
+    var tms_url = function(template) {
+        return function(c) {
+            console.log(c);
+
+            var max = c.zoom < 0 ? 1 : 1 << c.zoom;
+            if ((c.column < 0) || (c.column >= max)) {
+              return null;
+            }
+
+            return template.replace(/{(.)}/g, function(s, v) {
+              switch (v) {
+                case "Z": return c.zoom;
+                case "X": return c.column;
+                case "Y": return max - c.row - 1;
+              }
+              return v;
+            });
+
+        };
+    };
+
     var TMS = 'http://earth.unibuc.ro/geoserver/gwc/service/tms/1.0.0/';
     eH.create_layer('austrian', "Hărți austriece 1910, 1:200k",
-        TMS + 'geospatial:mozaic_austrian@EPSG:900913@png/{Z}/{X}/{Y}.png');
+        tms_url(TMS + 'geospatial:mozaic_austrian@EPSG:900913@png' +
+                '/{Z}/{X}/{Y}.png'));
     eH.create_layer('soviet', "Hărți sovietice, 1:100k",
-        TMS + 'geospatial:mozaic_soviet@EPSG:900913@png/{Z}/{X}/{Y}.png');
+        tms_url(TMS + 'geospatial:mozaic_soviet@EPSG:900913@png' +
+                '/{Z}/{X}/{Y}.png'));
     eH.create_layer('planuri_tragere', "Planuri Directoare de Tragere, 1:20k",
-        TMS + 'geospatial:planuri_tragere_20k@EPSG:900913@jpeg/{Z}/{X}/{Y}.jpeg');
+        tms_url(TMS + 'geospatial:planuri_tragere_20k@EPSG:900913@jpeg' +
+                '/{Z}/{X}/{Y}.jpeg'));
 
     eH.pomap.add(po.interact());
     eH.pomap.add(po.compass().pan('none'));
